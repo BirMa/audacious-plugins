@@ -13,6 +13,8 @@ typedef enum {
     EVENT_STOP,
     EVENT_NEXT_TRACK,
 
+    EVENT_RMTRACK,
+
     EVENT_FORWARD,
     EVENT_BACKWARD,
     EVENT_MUTE,

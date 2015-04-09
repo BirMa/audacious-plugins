@@ -73,6 +73,7 @@ static const char * event_desc[EVENT_MAX] = {
     [EVENT_PAUSE] = N_("Pause/Resume"),
     [EVENT_STOP] = N_("Stop"),
     [EVENT_NEXT_TRACK] = N_("Next track"),
+    [EVENT_RMTRACK] = "Remove playing track from playlist.",
     [EVENT_FORWARD] = N_("Forward 5 seconds"),
     [EVENT_BACKWARD] = N_("Rewind 5 seconds"),
     [EVENT_MUTE] = N_("Mute"),
