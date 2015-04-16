@@ -234,27 +234,27 @@ gboolean handle_keyevent (EVENT event)
     /* remove currently playing track from playlist */
     if (event == EVENT_RMTRACK)
     {
-      int current_playlist = aud_playlist_get_playing ();
-      int playing_track_nr = aud_playlist_get_position (current_playlist);
-      if (playing_track_nr == -1)
+      int rmtrack_current_playlist = aud_playlist_get_playing ();
+      int rmtrack_playing_track_nr = aud_playlist_get_position (rmtrack_current_playlist);
+      if (rmtrack_playing_track_nr == -1)
       {
         return TRUE;
       }
 
       /* If playback is paused now, we want to stay paused after the removal of the track. */
-      bool current_track_paused = aud_drct_get_paused();
+      bool rmtrack_current_track_paused = aud_drct_get_paused();
 
-      aud_playlist_entry_delete (current_playlist, playing_track_nr, 1);
+      aud_playlist_entry_delete (rmtrack_current_playlist, rmtrack_playing_track_nr, 1);
 
-      int tmp_playlist_entry_count = aud_playlist_entry_count(current_playlist);
-      if (playing_track_nr >= tmp_playlist_entry_count)
+      int rmtrack_playlist_entry_count = aud_playlist_entry_count(rmtrack_current_playlist);
+      if (rmtrack_playing_track_nr >= rmtrack_playlist_entry_count)
       { /* After removal from end of playlist stay at end. */
-        playing_track_nr = tmp_playlist_entry_count - 1;
+        rmtrack_playing_track_nr = rmtrack_playlist_entry_count - 1;
       }
 
-      aud_playlist_set_position (current_playlist, playing_track_nr);
+      aud_playlist_set_position (rmtrack_current_playlist, rmtrack_playing_track_nr);
 
-      aud_playlist_play (current_playlist, current_track_paused);
+      aud_playlist_play (rmtrack_current_playlist, rmtrack_current_track_paused);
 
       return TRUE;
     }
