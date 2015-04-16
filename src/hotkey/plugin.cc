@@ -254,7 +254,13 @@ gboolean handle_keyevent (EVENT event)
 
       aud_playlist_set_position (rmtrack_current_playlist, rmtrack_playing_track_nr);
 
-      aud_playlist_play (rmtrack_current_playlist, rmtrack_current_track_paused);
+      if (!rmtrack_current_track_paused && aud_get_bool(nullptr, "shuffle"))
+      { /* If the playlist is not paused and shuffle is enabled jump to a random track instead of the next. */
+        aud_drct_pl_next ();
+        aud_drct_play();
+      } else {
+        aud_playlist_play (rmtrack_current_playlist, rmtrack_current_track_paused);
+      }
 
       return TRUE;
     }
