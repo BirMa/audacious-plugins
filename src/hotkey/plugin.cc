@@ -231,27 +231,29 @@ gboolean handle_keyevent (EVENT event)
         return TRUE;
     }
     
-    /* remove track from playlist */
+    /* remove currently playing track from playlist */
     if (event == EVENT_RMTRACK)
     {
       int current_playlist = aud_playlist_get_playing ();
-      int playing_track = aud_playlist_get_position (current_playlist);
-      if (playing_track == -1)
+      int playing_track_nr = aud_playlist_get_position (current_playlist);
+      if (playing_track_nr == -1)
       {
         return TRUE;
       }
 
+      /* If playback is paused now, we want to stay paused after the removal of the track. */
       bool current_track_paused = aud_drct_get_paused();
 
-      aud_playlist_entry_delete (current_playlist, playing_track, 1);
+      aud_playlist_entry_delete (current_playlist, playing_track_nr, 1);
 
       int tmp_playlist_entry_count = aud_playlist_entry_count(current_playlist);
-      if (playing_track >= tmp_playlist_entry_count)
+      if (playing_track_nr >= tmp_playlist_entry_count)
       { /* After removal from end of playlist stay at end. */
-        playing_track = tmp_playlist_entry_count - 1;
+        playing_track_nr = tmp_playlist_entry_count - 1;
       }
 
-      aud_playlist_set_position (current_playlist, playing_track);
+      aud_playlist_set_position (current_playlist, playing_track_nr);
+
       aud_playlist_play (current_playlist, current_track_paused);
 
       return TRUE;
